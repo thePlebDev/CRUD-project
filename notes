@@ -1,0 +1,151 @@
+- so I have decided to make a weird crud dating profile. NO functionality really just trying to implement some of the crud stuff
+that I have learned.
+- I basically just want a basic crud app, might spice things up later
+- for the state, we can use as much as we like
+
+- so now That we have the bare bones of the project, we are going to bring in some dummy data and map over it so our project can use it
+- at the moment I think I need to define a css grid so the profiles fall inline.
+- Now i will get back to the dummy data
+- we then pass the dummy data which is now a state to our profile component, that will have access to it through props
+- so now I need to map over that data and put the data where it needs to go
+
+Rendering the list of data
+- in Javascript we transform lists with the map() function. In react we do the same thing
+- in React we can build collections of elements and include them in JSX using curly brackets.
+- so Now that I think that I have to put the display:grid on the profiles className. Than seemed to work
+
+- now I have decided that I want to create the add profile to be in the nav Bar and I want that NavBar to be responsive, That means
+that I am currently creating a responsive NavBar. After that I want to profile creation form to pop up in a modal. So that will be
+next on the list.
+- now that I have a basic navbar I will create the modal that I want to pop up when I click on the create profile button
+- so it looks like when we build the modal we are going to create a state with hooks to toggle the state. we will then pass that
+data between coponents with props and have basic authentication when the user creates the component
+
+- so now That we have the basics of the modal we need a way to toggle between the state of the modal, like show and hide
+- now we create the state, which we will create with hooks
+- now that we have the state hooked up we can do conditional rendering with our modal component
+- now we have the conditional rendering down. We need to make the modal come out infront, with a little bit of css magic.
+- so now that the position is absolute. we just need to make it look like a form
+- I seem to be running into a problem of how to display my modal properly I think that it has something to do with the fact that
+it is positioned absolute. So I will now check out more on that.
+
+- with absolute positioning we are able to position it exactly where we want it. make sure not to over use it. This can be a maintenance
+nightmare.
+ - ok so I think I will just use the left, right and the rest to position it
+
+ - so ya, to fix the modal, I just had to set the display to block, now I can go back to styling it like a normal form
+ - so now we have the basics of the modal down, we will create the form submission stuff
+
+ - we create a function to update the state within the form
+
+ - so now we create the actual function that will add the new profile to the state, we have the setProfiles function automatically
+ from useState, so that is what we will use to update the user state.
+ -our add profile function will take a profile object as a parameter and then add them to the array of objects.
+ - the ...profiles ensures that all the previous ones remain in the array.
+ - ok so this function is literally just taking in an object,we are incrementing the key manualy by 1 and then we are adding
+ that profile to the state
+ - we then give this function to another component through the power of props and it will be used accordingly
+
+
+ -so we have a function that adds a new user. we then pass that through the props system to the navBar component and then we pass
+ it again to the modal form
+ - then we create the form. now we have the form created
+ - we are going to create an empty initial state, this is useful because when we submit the form, it can return to the initial state
+ - on our form, we also have the conditional rendering.
+ - so we do the object destructoring on the event object but I am not sure what values I am pulling out
+ - so I ran into a problem where the form is not letting you type anything in. I think this has something to do with the value and
+ the state. I think that onChange has to run when something is typed and then the value of the form inputs has to be changed to the
+ state value.
+ - I will read up more on states and values in the react documentation
+
+HTML FORMS
+- so initially an HTML form maintains their own state and update it based on the user input. In React, mutable state is typically kept
+in the state property of components and only updated with setState
+
+- so what we need to do is update the state based of the user input and then change the value of the input to the that state value
+- ooohhhh ok so we pull the name and the value from the event object and then use that to update the state. just like the lady says
+
+- so we have destructored the name and value form the input of the form and then we use the state hook to update the state.
+- we then use the state to set the value of the form to the desired value of the state
+
+- so we have to submit the form back to the app component. so we passed the function down with props, we are going to use props to
+access the function. this funciton will fire when onSubmit is called. we should also write a small bit of validation
+- so I need to read up on what happens when you pass a function through props and then call that function, I think it still does
+everything it would normally do but I just need to read up a little more on it.
+- ya so when we call a function that was passed down through props it will still perform normally as if it was called from
+its original function.
+
+-so lets write the on submit function.
+- right now I am going to read up on form validation with javascript
+-ok,so validation with javascript is literally get the value and check to make sure that it has the wanted value. you could also
+use the html 5 validation
+- ok so the value of an input should not be null, so the initial value of the props has to be changed. it can't be null but I guess that
+undefined is fine.
+- nevermind, it is still yelling at me. so I just have to set the age value of the state to an empty string. cool
+
+- so I guess when I prevent the defualt of the form being submitted, it also stops my modal from being closed
+- nevermind I found out what my problem was, I messed up some of the logic, so it always rendered nothing. Now it will work
+- so I guess that the show property is a read only property
+
+- Now We have the form some what under control and I think we can go from here.
+- now we need to call the function that was in the props to set the new profile up.
+- ok so our user value is not the problem.
+
+- so my problem now is that the new object from the form is not being added to the state like I want. nothing is being added.
+- so we know that It is beign called, the state is just not being updated. WHY?
+- so my problem seems to be in my hook, I will
+- so there appears to be something wrong with the hook, there appears to be somethign wrong with the the way that it sets itsself.
+- I guess will have to read more about hooks and google around a bit
+
+- my problem is one of stale state:
+
+- any funtion inside a component, including event handler and effects "sees" the props and state from the render it was created
+
+- it looks like it is a sort of bug that is cause from me not understanding how the hooks and state work. I am now reading up on it.
+- props in react are immutable
+
+- lets read the state hook docs before I go searching for stuff
+- ok so you are only suppose to call hook sat top level and not in loops,conditionals or nested functions... which I am.
+- this allows React to correctly preserve the state of Hooks between multiple useState calls
+
+how does React know which state corresponds to which useState call?:
+-react relies on the order in which Hooks are called
+- the reason that I may be getting this bug is because React doesnt know what to render. I don't think this is the reason but maybe.
+- so that wasnt the problem. I do not know why my things are not rendering.
+- ok , so I found the problem. I was not that my state was stale and not rendering. I was just dumb and had the wrong value
+inside of something.
+
+- so now I have it working. I Think I will put some basic form validation on it.
+- so I think that I will have a state that will be one for errors. we will want the error function to be in the onSubmit function
+- so we want the function to do its validation and if anything goes wrong it will update the error value and then that will be displayed
+- so we will make a function to do the error checking
+- so I dont think we can do the error checking the way we wanted, because we are not allowed to call hooks in conditionals.
+
+
+- so apparently I will be creating my own custom react Hook
+- first we create a file called useForm. putting 'use' infront of Form is normal convention when creating custom hooks
+- so on every form you are going to have a handleChange function and a handle submit function
+- we take all the logic from the form and place it into the useForm file
+- then we return all the things that our other functions need
+- then we import the file from our normal form component
+- ok so with a little luck, the hooks will still work
+- I got the hooks in place but now nothing is working..... yay. ok lets just keep on chugging along until we figure this out.
+- I think my problem is that I just havent called the addProfile function yet. so really small when you think about it.
+- so with I think that we have it figured out now. lets try it out and see.
+-perfect it works, now We can get onto the error handeling
+
+- for our error validation we need a new state for the errors, which I was right about that. we also need a function that validates
+those errors and need to pass those error back to the form.
+- ok, right now I want to put a regex expression for someones height. I will now read up on regex expressions
+
+regex expressions:
+- I guess in javascript they are called regular expressions
+- literals are between two slashes. so we need to match a digit than a quote thing and then another digit
+- so I think that if I went /[3-7]\d this would only allow for a two digit number and the first number has to be greater than 3
+- so the regex is less than or equal to the number that we specify.
+- so now we just have to get the special character
+- so we will be using a special character which means that we will be escaping it with a back slash.
+- so for the sake of time right now we are not going to validate the the height and I will probably will delete it later.
+
+
+- back to the main code, now we have to import the validate form code from the validate form file into our main file.

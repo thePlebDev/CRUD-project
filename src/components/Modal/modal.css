@@ -1,0 +1,53 @@
+
+.modalForm{
+  position: absolute;
+  z-index: 4;
+
+  background-color: #f2f2f2;
+  color: black;
+  border-radius: 5px;
+  padding:20px;
+  width: 60%;
+  left:20%;
+  top:20%;
+}
+
+input[type=text]{
+  display: block;
+  width: 100%;
+  padding:12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+input[type=number]{
+  display: block;
+  width: 100%;
+  padding:12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.modalButton{
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+  padding: 5px 11px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.modalButton:hover {
+  background-color: #4CAF50; /* green */
+  color: white;
+}
+
+.errorMessage{
+  text-align: center;
+  color:red;
+  text-transform: uppercase;
+  font-weight: bold
+}

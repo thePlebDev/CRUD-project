@@ -149,3 +149,107 @@ regex expressions:
 
 
 - back to the main code, now we have to import the validate form code from the validate form file into our main file.
+- we then pass that into the useForm.
+- so we will call the setErrors function with the validate function as a parameter. the validate function will return an object of erros
+which will then be used to update the error state.
+- this is actually a really cool way to do this, because the way that I was doing it was dumb and had me trying to set the error in a
+conditional statement which is a big no no
+
+so what happens when we call submit:
+- the onSubmit function gets called
+- it prevents the default
+- it resets the form to the blank value.
+- setErrors is then called. this will then call the validate function with the current user values passed into it.
+- the validate function will then check all of its functions and then it will return an object that setError will use to set its state
+
+- so now we just have to handle the error messages, so our custom hook now returns the error object and then we should just be able
+to use that to display the message is jsx
+- we then use conditional rendering to make the message appear. I am going to have to read up on conditional rendering
+because this guy is using the && operator in a weird way with jsx
+- so he is using the && operator to conditionaly render a component. This works because true and an expression always evaluates to true
+and false plus expression evaluates to false
+
+- so we have ran into a problem where our form sibmits and resets its self and submits event if there is an error, I need to fix this
+- ok so he is explaining it as we can then have another function called isSubmitting that will take more of the logic away and I Think
+that this will fix my problem
+
+- we now have a new state called isSubmitting, with an initial state of false. Then we call it in the submission and call it
+with a value of true
+- we then use the hook called useEffect, we will use useEffect to say that if errors are changing should we call all the other
+functions.
+- so now I need to read up on the use effect hook.
+
+
+USE EFFECT HOOK
+-It lets you perform side effects in function components. the useEffect hook can be throught of as all the component life cycle
+methods combined.
+- when you use this hook you are telling React that the component needs to do something after render. React will remember
+the function that you passed it, it will then call it later  after perfoming the DOM updates
+- it runs after both the first render and after every update. think "after render "
+- effects scheduled with useEffect don't block the browser from updating the screen. THis makes things feels more responsive
+- useEffect can take in two arguments, the first being a callback function that gets called when the hook runs and the second being
+an array that allows us to tell React when we want our effect to be called. If you only want the effect to be called after the first
+render, then you would pass an empty array.
+
+
+-we will now create the isSubmitting function that will seperate some of the logic into a different function.
+- we create isSubmitting,setIsSubmitting = useState(false)
+- we then call the setIsSubmitting(true) after our error checks, this along with the useEffect hook will allow us to see if we
+need to display errors or not
+- we import useEffect
+
+- we will then just check in useEffect to see if there are any errors if there are not, then we call all the normal functions that
+we want. If there are, then we display the error messages
+- this decouples are functions and makes things look a lot cleaner.
+- so to check if there are errors or not, we have to check if the errors object is empty or not. to check if an object is empty or not
+we have can pull the keys from the object, put them into an array and check to see if they are empty or not
+- but first we have to set our error State to an empty object as the initial state. this means that it will only be populated if the
+checkError function finds an error and populates it
+
+- so after reading the documentation, when we provide a second argument to useEffect, it will use that argument to check and see if
+that argument has changed, if it hasnt then it will not run, if it has than it will run
+- so that doesnt fix the warning, which is unfortunate
+- our effect depends on the error state and it needs to run after it changes
+- so the simple way to fix this warning is to just add them to the the dependency but I don't really understand what that does
+- ok so the reason that we need to put things inside the dependencies, seems to steam from a greater understanding of what functions
+actualy do. I need to Read more about what functions actually do.
+
+
+FUNCTIONS vs CLASS COMPONENTS:
+functions capture state and props inside them.
+
+- when you use a class component it is easy for the 'this' to mutate and change in unpredictable ways. This problem stems from reading
+the props to late  in the function. You can solve this by capturing the props in the render method props = this.props
+
+- function components capture the rendered values.
+
+- props is never mutated by react, props are pure
+
+
+- so it is difficult to remember which props or state are used by functions outside of the effect. so you would want to
+declare functions that are used by useEffect inside of useEffect, thinga that come from outside of useEffect should be placed inside of
+the dependency array
+- so it is only safe to omit a function from the dependency list if nothing in it references props, state, or values derived from them
+
+
+- so what we are going to do it just try it with only the error object in the dependencies. If it causes any bugs then we will deal with
+them when they come out. But I dont think my app as enough working parts to cause a bug. well maybe when I try to implement the edit
+button but we will cross that bridge when we get to it.
+
+
+
+- we are currently getting a warning that states that useEffect has a missing dependency.
+- This warning is coming from the linter telling us that we are depending on external values that may change
+
+- so the form validation is now up and running.
+- we can use ES6 templates to conditionally render class names. i guess to add another class name you can just add it with spaces.
+- when I put in the css I noticed that I had a css rule that was over riding my form error css, so I had to use the important tag
+to make the error css to supersede the other rule.
+
+- but now I have completed the adding new user part of the project. I will now continue to the delete and edit part of the project.
+
+
+DELETING A USER
+- this is suppose to be the easiest. it is literally a function that takes the id that we give it and just filters out that profile
+returning a new state.
+- ok so now we have the deleting user down and created. Now we move on to editing an user, this will be a little harder.

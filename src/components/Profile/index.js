@@ -3,7 +3,7 @@ import React from 'react'
 import './profile.css'
 
 const Profile = (props)=>{
-  
+
   return(
     <div className="profiles">
     {
@@ -12,8 +12,8 @@ const Profile = (props)=>{
           <h3>{data.name}</h3>
           <h3>{data.age}</h3>
           <h3>{data.height}</h3>
-          <button>Edit</button>
-          <button>Delete</button>
+          <button onClick={()=>{props.editRow(data)}}>Edit</button>
+          <button onClick={()=>{props.deleteProfile(data.id)}}>Delete</button>
         </div>
       ))
     }

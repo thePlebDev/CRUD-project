@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 const useForm = (props, validate) => {
   const initialFormState = {name:"",age:'',height:""}
-  const initialFormErrorState = {name:"",age:'',height:""}
+  const initialFormErrorState = {}
   const [user,setUser] = useState(initialFormState)
-  const [error,setError] = useState(initialFormErrorState)
+  const [error,setErrors] = useState(initialFormErrorState)
+  const [isSubmitting,setIsSubmitting] = useState(false);
 
 
 
@@ -19,15 +20,26 @@ const useForm = (props, validate) => {
   const handleSubmit=(event)=>{
 
       event.preventDefault()
-      setUser(initialFormState)
+      setErrors(validate(user))
+      setIsSubmitting(true)
 
-      props.addProfile(user)
-      props.setShow(false)
     }
+
+    useEffect(()=>{
+      //check to see if there are errors or not
+      if(Object.keys(error).length === 0 && isSubmitting){
+        props.addProfile(user)
+        setUser(initialFormState)
+        props.setShow(false)
+      }
+
+    },[error])
+
     return{
       handleInputChange,
       handleSubmit,
-      user
+      user,
+      error
     }
 
   }

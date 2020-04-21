@@ -51,3 +51,12 @@ input[type=number]{
   text-transform: uppercase;
   font-weight: bold
 }
+
+.error{
+  color:red;
+  font-size:12px;
+}
+
+.inputError {
+  border: 1px solid red !important;
+}

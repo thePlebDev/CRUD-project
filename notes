@@ -379,4 +379,49 @@ and form fields
 - making the form fields hollow means to give then a boxshadow with an inset value
 
 - now we are using the css after effects. I will read up on what those even are.
-- so they are pusedo elements that are used to place stuff either right after or right before the element
+- so they are pusedo elements that are used to place stuff either right after or right before the element.
+
+- so big news, I realized I did all the form upgrades on the whole fucking form, so I just control zed the whole thing.
+and now I decided to reformat the entire thing and turn it into one big ottergam. Yay me.
+
+- so I think the component that I am probably going to turn into the otter gram is going to be profile. actually I just might make a whole new
+component and then the profile compoennt just passes it the data
+
+- well actually I have the data and what I need to do is just make it spin
+
+
+
+CREATING THE CAROSEL
+- so fuck it I am just going to create one myself and see if I can
+
+1) create new component that shows a single
+2)have button that fires of next function
+3)have button that fires of back function
+4) create next function.
+5) create the functionality for what happens when the id number falls out.
+6) try to style it a bit
+7) look at someone else's.
+8) try to get the slide effect (maybe some kind of load animation)
+
+
+- so we are going to have to pass somethings to the props from the App.
+- ok so now That I have the basic skeleton of what I want to do I can try to get the next function working
+- so I want a function to work for both the next button and the back button. I am thinking about having it rely on the id
+- it should go something like this, is the less than one, go to the last picture, is the id greater than the greatest element.
+than go to id one.
+- it an array, so I feel like I should read up on arrays
+- so I think I want the filter method, I want it to take in the id +1 and then it can filter out the needed info. If there is no
+info that matches then it will return to the beginning of the array for the next function and it will return to the end of the array
+for the back function.
+- the filter method creates a new array with all elements that pass the test implemented
+- so I think we want a local state to hold what the current profile being shown is
+
+- so the onClick function needs to be a function that returns the function, because the onclick will run the first function.
+
+- so when I click next, this should be what happens, the next function will be called with the current carousel id, the props.profile.
+which is the entire profile date, it is also called with the setCarousel function which will be used to update the local state of the
+Carousel.
+
+- so originally carousel is just the first object in the profileData
+- we pass next the carousel id which is 1. We pass it the props.profile which is all the profile data, and then the set carousel and
+carousel.

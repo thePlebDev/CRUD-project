@@ -4,6 +4,7 @@ import './app.css'
 import Profiles from '../Profile'
 import NavBar from '../NavBar'
 import EditUserForm from '../EditProfileForm'
+import Carousel from '../Carousel'
 
 
 
@@ -60,6 +61,7 @@ const App =()=>{
           <Profiles  data={profiles} deleteProfile={deleteProfile} editRow={editRow}/>
         </div>
       </div>
+      <Carousel profile={profiles}/>
     </div>
   )
 }

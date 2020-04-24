@@ -1,0 +1,15 @@
+.main-container{
+  border: 1px solid black;
+  width: 30%;
+  margin: 0 auto;
+  text-align: center;
+  height: 400px;
+
+}
+
+.info-container{
+  height: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 30% 30% 30%;
+}

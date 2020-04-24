@@ -253,3 +253,130 @@ DELETING A USER
 - this is suppose to be the easiest. it is literally a function that takes the id that we give it and just filters out that profile
 returning a new state.
 - ok so now we have the deleting user down and created. Now we move on to editing an user, this will be a little harder.
+- apparently we will be using the useEffect hook again
+
+UPDATING A USER
+-this will be similar to the adding a new user except we will have to be able to identify which user is being edited. For this
+we will be using the Effect Hook
+- we will create an initials empty state for the form.
+- so we need to have an edit mode that is going to be the trigger for the state.
+-now we are going to create the actual function that will get called when the edit form is submitted. this function needs to map
+through the array and update the user that matches the ID passed through. This means the function will take two parameters.
+the updated user object and the id, this will be done with a ternary operator
+
+- so wtf is happening?
+-so this function will be called when the editing form is submitted, it will take two parameters, the updated profile and the id of
+the profile. it will then setEditing to false and use a terinary operator to map over the profile. this operator will say.
+is the current profile id equal to the one we are editing? if so then return this new profile, if not. Then return the old user
+
+
+- the next thing that we are going to do is create a new component for this editing form, it is basically going to be the same
+as the other form with some slight changes.
+- in typical react forms we need to turn the form into a controlled component. we do this by making the react state the single source
+of truth. we set the value attribute on the form to the state and this is what makes the form a controlled component. we then combine
+this with the function that is running when onChange is triggered. this means that the inputs value is always driven by the react state
+
+- so for this new editing form I still want everything the same except I want the buttons to be different and fire different methods.
+I guess on this little of an app it would probably just be easier to create a whole new application instead of trying to make my first
+form more flexible and accidently braking something.
+ - so I guess I am going to create a whole new form but still use the old validation.
+ - so I guess that form input values are displayed inline.
+ - right Now I want to get the form up and running without any validation, after I have it going I will add validation.
+ - so now I have to create a toggle for displaying it.
+ - so in this it seems that if you want something to display on a click you have to set a toggle and then check if that toggle is
+ on or off and render accordingly. We will do the checking in this app with a ternary operator.
+- so now I need to figure out what will actually happen when I press the edit button. When I press the edit button what I want to
+happen is for the form to show up and for it to be filled with the current profile information but lets see what happens and why
+
+
+WHAT HAPPENS WHEN I CLICK THE EDIT BUTTON :
+- first when the application loads, I have some conditional rendering that is called when the render happens. It will check to see
+if the editing state is true of false. since that state is set to false it will render nothing on the first render.
+- we then pass the profile function an edit row function. this function will lets us set the Edit state to true and fill out the
+current user form to the one that we clicked on.
+
+- the button edit button that is on the profile component now has access to the editRow function through props. the button is click
+and the editrow function is triggered, setting the editing state to true, this will show the form. it will also call the
+setCurrentUser function, this should fill out the form with the wanted stuff
+
+- the form should be pre filled out with  the current users information. this info is coming from props,which was set by the editRow
+funciton that was called in the profile component once you hit the edit button. ok so now lets give this thing a try. I am
+looking for an ugly form with the right data. ok so that works. very cool Now I need to see what happens when I click the update button.
+- what i want to happen is for the profiles state to be updated
+- so I currently am getting the edit form but I can not edit anything, I  think this means that there is a problem with the value.
+ ok so Now I have everything up and ready to go. I just have to put in my validation again and then its just styling left.
+
+
+
+-so right now I need to put in validation. so i really need to do is import my validation right ? because I can reuse it
+
+- first off I need to understand what the hecl my validation is even doing.
+
+
+
+- so onSubmit it gets the handleSubmit funtion from the useForm funciton which takes two arguments, props and a validate function
+- The validate function is a function that declares an object and then just through basic if else statemnets it will determine if there is an error
+or not. if there is then it will be assigned to that obejct and the object will be returned.
+
+-so the use form function has all the functions that we need, it has handle input, on submit and the useEffect function that lets us run a function depending
+on if there are any errors or not.
+
+- so we need to import useForm from use form, we also need to import the validate function
+- so we have the use form and we destructor the onSubmit, handelInput, user and error
+- damn, so I do need this validation to do different things I think because of this we have to write another validation form. A little tedious but not the
+worst thing in the world.
+
+- so now we will be handling all the error validation with a new custom React hook
+- so I need to figure out how the form gets prepopulated with values.
+-initially we don't know what is being edited so we are going to to create an inital empty state. so when the edit button is clicked
+the editRow function will set the current user but I think we are currently over riding that.
+- right so the edit row function is setting the current user. We also have a current user sate the is in the App
+- cool so we got the edit sorted back out. Now all we need to do is pass the user into the validation form.
+
+- so now when we click edit, the edit row function will be launched. Which will set the current user to the one that we have clicked
+- the current user is a state.
+- everything just seems to be related to state and just a shit ton of boolean values. if this is hear do this, if it is not then do this
+
+
+-so now we have run into a problem of editing the form
+- on our handel input value we are calling set user and setUser has its value set to props.currentUser. The currentUser is what
+is being set by the edit row.
+-so everything seems to be looking normal now. I just need to put in the validation
+- so update user also closes the page so we have to call that in the use effect hook.
+
+- now We have the validation running, we are going to use the useEffect hook, but first I want to read up on it some more.
+- Use useEffect lets you perform side effects like, data fetching setting up a subscription and manually changing the DOM.
+- so in our case, we are trying to manually update the DOM.
+
+- normally in React class components, the render method itself shouldn't cause side effects. it would be too early, you typicaly
+want to perform our effects after React has updated the DOM. this is why side effects get put into componentDidMount.
+- use effect will not block the browser from updating the screen.
+
+- so when we use useEffect we will check if the errors object is empty, we check to see if an object is empty by pulling off the
+keys, putting them into an array and seeing if that array is empty or not. If that array is empty then that means that there is no error
+
+- so Now I think I finally have everything going, the last thing I need to do is create the styling, first I will start with the edit form.
+- actually I should really just nail down how I want the form to look.
+- so I guess I should read up on form design
+
+
+FORM DESIGN:
+
+form layouts: 6 best practices:
+1) use a single-column layout
+2) align copy to the left
+3) one form a page, break the form up if too long
+4) create a mobile friendly form
+5) add inline form field labels
+6)Use inline error messages
+
+- so at least now we know a few things about forms
+- but for some reason my css is not updating now
+-should make the fields flat and the buttons raised.
+make the fields look hollow: givenfields a border or inset shadow, even if only 1px, also eliminate background color.
+make the buttons raised: include a drop shadow, rounded corners, use background color different from that used for both the page
+and form fields
+- making the form fields hollow means to give then a boxshadow with an inset value
+
+- now we are using the css after effects. I will read up on what those even are.
+- so they are pusedo elements that are used to place stuff either right after or right before the element

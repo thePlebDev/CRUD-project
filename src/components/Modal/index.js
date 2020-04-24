@@ -16,7 +16,7 @@ const {handleInputChange,handleSubmit,user,error} = useForm(props, validate)
     return(
       <div className="modalForm">
           <form onSubmit={handleSubmit} noValidate>
-            <label htmlFor='name'>Name</label>
+            <label htmlFor='name'>dude</label>
             <input type='text' id='name' name='name' value={user.name} onChange={handleInputChange} className={` ${ error.name && "inputError"}`}/>
             { error.name && <p className="error" >{error.name} </p> }
 

@@ -3,6 +3,7 @@ import React,{ useState } from 'react';
 import './app.css'
 import Profiles from '../Profile'
 import NavBar from '../NavBar'
+import EditUserForm from '../EditProfileForm'
 
 
 
@@ -35,9 +36,24 @@ const App =()=>{
     setCurrentUser({id:profile.id,name:profile.name,age:profile.age, height:profile.height })
   }
 
+  const updateUser = (id, updatedUser) =>{
+    setEditing(false)
+
+    setProfiles(profiles.map(user =>(user.id === id ? updatedUser: user)))
+  }
+
   return(
     <div>
       <NavBar addProfile={addProfile} />
+      <div className="editForm">
+        {editing ? (
+          <div>
+            <EditUserForm setEditing={setEditing}  currentUser={currentUser} updateUser={updateUser} />
+          </div>
+        ):(
+          <div></div>
+        )}
+      </div>
       <div className='container'>
       <h1>Crud Dating Profile</h1>
         <div className='profile-container'>
